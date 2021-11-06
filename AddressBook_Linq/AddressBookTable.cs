@@ -39,5 +39,19 @@ namespace AddressBook_Linq
                     + " " + "Zip : " + contact.Field<int>("Zip") + " " + "Phone Number : " + contact.Field<long>("PhoneNumber") + " " + "Email : " + contact.Field<string>("Email") + " ");
             }
         }
+
+        public void EditContact(DataTable table)
+        {
+            var contacts = table.AsEnumerable().Where(x => x.Field<string>("FirstName") == "Rama");
+            foreach (var contact in contacts)
+            {
+                contact.SetField("LastName", "Das");
+                contact.SetField("City", "Mumbai");
+                contact.SetField("State", "Maharashtra");
+            }
+
+            Console.WriteLine("The Contact is updated succesfully\n");
+            DisplayContacts(contacts.CopyToDataTable());
+        }
     }
 }
